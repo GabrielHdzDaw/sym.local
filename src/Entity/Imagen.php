@@ -20,7 +20,7 @@
 // return self::RUTA_IMAGENES_CLIENTES . $this->getNombre();
 namespace App\Entity;
 
-use App\entity\IEntity;
+use App\Entity\IEntity;
 
 class Imagen implements IEntity
 {

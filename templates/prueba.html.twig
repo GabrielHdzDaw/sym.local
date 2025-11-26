@@ -12,11 +12,7 @@
 		{% endif %}
 		<p>{{ saludo }}!!</p>
 
-		<ul>
-			{%  for nombre in nombres %}
-				<li>{{ nombre }}</li>
-			{% endfor %}
-		</ul>
+		{% include 'parts/nombres.part.html.twig' with {'nombres':nombres} %}
         <p>{{ fecha | date }} </p>
 	</head>
 	<body>
