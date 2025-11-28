@@ -5,6 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use \DateTime;
 
+use Symfony\Component\Routing\Annotation\Route;
+
+#[Route('/', name: 'sym_index')]
+
 class DefaultController extends AbstractController
 {
     public function index()
@@ -38,5 +42,10 @@ class DefaultController extends AbstractController
             'nombres' => $nombres,
             'fecha' => new \DateTime()
         ]);
+    }
+
+    #[Route('/about', name: 'sym_about')]
+    public function about() {
+        return $this->render('prueba1.html.twig');
     }
 }
