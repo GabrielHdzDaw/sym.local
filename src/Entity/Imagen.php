@@ -107,4 +107,19 @@ class Imagen
 
         return $this;
     }
+
+    public function getUrlGaleria(): string
+    {
+        return '/images/galeria/' . $this->nombre;
+    }
+
+    public function getUrlAsociados(): string
+    {
+        return '/images/asociados/' . $this->nombre;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nombre;
+    }
 }

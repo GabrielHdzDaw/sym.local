@@ -1,7 +1,7 @@
 <!-- Navigation Bar -->
 
 <?php
-use dwes\app\utils\Utils;
+use App\Utils\Utils;
 ?>
 
 <nav class="navbar navbar-fixed-top navbar-default">

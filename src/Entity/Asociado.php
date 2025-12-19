@@ -2,112 +2,71 @@
 
 namespace App\Entity;
 
-use App\Entity\IEntity;
+use App\Repository\AsociadoRepository;
+use Doctrine\ORM\Mapping as ORM;
 
-
-class Asociado implements IEntity
+#[ORM\Entity(repositoryClass: AsociadoRepository::class)]
+class Asociado
 {
-    private $id;
-    private $nombre;
-    private $logo;
-    private $descripcion;
-    const RUTA_LOGOS_ASOCIADOS = "/public/images/asociados/";
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @param string $nombre 
-     * @param string $logo
-     * @param string $descripcion
-     */
-    function __construct($nombre = "", $logo = "", $descripcion = "")
-    {
-        $this->id = null;
-        $this->nombre = $nombre;
-        $this->logo = $logo;
-        $this->descripcion = $descripcion;
-    }
+    #[ORM\Column(length: 100)]
+    private ?string $nombre = null;
 
-    /*
-        * @return int
-    */
+    #[ORM\Column(length: 255)]
+    private ?string $descripcion = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $logo = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getNombre(): ?string
     {
         return $this->nombre;
     }
 
-    /**
-     * @param string $nombre
-     * @return Asociado
-     */
-    public function setNombre($nombre): ?Asociado
+    public function setNombre(string $nombre): static
     {
         $this->nombre = $nombre;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
-
-    /**
-     * @param string $logo
-     * @return Asociado
-     */
-    public function setLogo($logo): ?Asociado
-    {
-        $this->logo = $logo;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getDescripcion(): ?string
     {
         return $this->descripcion;
     }
 
-    /**
-     * @param string $Descripcion
-     * @return Asociado
-     */
-    public function setDescripcion($descripcion): ?Asociado
+    public function setDescripcion(string $descripcion): static
     {
         $this->descripcion = $descripcion;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getUrl(): ?string
+    public function getLogo(): ?string
     {
-        return self::RUTA_LOGOS_ASOCIADOS . $this->logo;
+        return $this->logo;
     }
 
-    public function toArray(): array
+    public function setLogo(string $logo): static
     {
-        return [
-            'id' => $this->getId(),
-            'nombre' => $this->getNombre(),
-            'logo' => $this->getLogo(),
-            'descripcion' => $this->getDescripcion()
-        ];
-    }
+        $this->logo = $logo;
 
-    public function __toString()
-    {
-        return $this->descripcion;
+        return $this;
     }
 }

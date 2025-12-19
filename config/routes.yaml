@@ -5,7 +5,12 @@
 index:
     path: /
     controller: App\Controller\ProyectoController::index
+
+imagen:
+    path: /imagen
+    controller: App\Controller\ImagenController::index
     
+
 # index1:
 #     path: /uno
 #     controller: App\Controller\DefaultController::index1
@@ -17,3 +22,7 @@ index:
 about:
   path: /about
   controller: App\Controller\DefaultController::about
+
+controllers:
+    resource: ../src/Controller/
+    type: attribute
