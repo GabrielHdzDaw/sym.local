@@ -1,25 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{ imagen.getDescripcion() }}
-{% endblock %}
+{% block title %}Mostrar Imagen{% endblock %}
 
 {% block principal %}
+    <h1>Imagen</h1>
 
-	<div class="container-fluid">
-		<div class="row popup-gallery">
-			<div class="col-xs-12 col-sm-6 col-md-3">
-				<h1>Imagen Galería</h1>
-				<div class="sol">
-					<figure class="figure">
-						<img class="figure-img img-fluid rounded" width="300px" src="{{ imagen.getUrlGaleria() }}" alt="{{ imagen.getDescripcion() }}">
-						<figcaption class="figure-caption text-xs-right">{{ imagen.getDescripcion() }}</figcaption>
-                        
-					</figure>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ imagen.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ imagen.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Categoria</th>
+                <td>{{ imagen.categoria }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ imagen.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>NumVisualizaciones</th>
+                <td>{{ imagen.numVisualizaciones }}</td>
+            </tr>
+            <tr>
+                <th>NumLikes</th>
+                <td>{{ imagen.numLikes }}</td>
+            </tr>
+            <tr>
+                <th>NumDescargas</th>
+                <td>{{ imagen.numDescargas }}</td>
+            </tr>
+        </tbody>
+    </table>
 
+    <a href="{{ path('app_imagen_index') }}">back to list</a>
 
-				</div>
-			</div>
-		</div>
-	</div>
+    <a href="{{ path('app_imagen_edit', {'id': imagen.id}) }}">edit</a>
+
+    {{ include('imagen/_delete_form.html.twig') }}
 {% endblock %}

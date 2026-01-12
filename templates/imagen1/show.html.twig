@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ imagen.getDescripcion() }}
+{% endblock %}
+
+{% block principal %}
+
+	<div class="container-fluid">
+		<div class="row popup-gallery">
+			<div class="col-xs-12 col-sm-6 col-md-3">
+				<h1>Imagen Galería</h1>
+				<div class="sol">
+					<figure class="figure">
+						<img class="figure-img img-fluid rounded" width="300px" src="{{ imagen.getUrlGaleria() }}" alt="{{ imagen.getDescripcion() }}">
+						<figcaption class="figure-caption text-xs-right">{{ imagen.getDescripcion() }}</figcaption>
+                        
+					</figure>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

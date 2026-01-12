@@ -11,3 +11,5 @@
 <script type="text/javascript" src="/public/js/scrollreveal.min.js"></script>
 <script type="text/javascript" src="/public/js/script.js"></script>
 </body>
+
+</html>

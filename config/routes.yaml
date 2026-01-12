@@ -9,7 +9,6 @@ index:
 imagen:
     path: /imagen
     controller: App\Controller\ImagenController::index
-    
 
 # index1:
 #     path: /uno
@@ -20,8 +19,8 @@ imagen:
 #     controller: App\Controller\DefaultController::index2
 
 about:
-  path: /about
-  controller: App\Controller\DefaultController::about
+    path: /about
+    controller: App\Controller\DefaultController::about
 
 controllers:
     resource: ../src/Controller/
