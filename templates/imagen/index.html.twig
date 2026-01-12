@@ -6,21 +6,41 @@
 {% block principal %}
 	<h1>Imagen index</h1>
 
+	<form action="{{ path('app_imagen_index_busqueda') }}" method="post">
+		<label>Búsqueda:</label>
+		<input type="text" name="busqueda" id="busqueda" value="">
+		<input type="submit" value="Buscar">
+	</form>
+	
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Categoria</th>
-				<th>Descripcion</th>
-				<th>NumVisualizaciones</th>
-				<th>NumLikes</th>
-				<th>NumDescargas</th>
+				<th>
+					<a href="{{ path("app_imagen_index_ordenado", {ordenacion: 'id'}) }}">Id</a>
+				</th>
+				<th>
+					<a href="{{ path("app_imagen_index_ordenado", {ordenacion: 'nombre'}) }}">Nombre</a>
+				</th>
+				<th>
+					<a href="{{ path("app_imagen_index_ordenado", {ordenacion: 'categoria'}) }}">Categoria</a>
+				</th>
+				<th>
+					<a href="{{ path("app_imagen_index_ordenado", {ordenacion: 'descripcion'}) }}">Descripcion</a>
+				</th>
+				<th>
+					<a href="{{ path("app_imagen_index_ordenado", {ordenacion: 'numVisualizaciones'}) }}">NumVisualizaciones</a>
+				</th>
+				<th>
+					<a href="{{ path("app_imagen_index_ordenado", {ordenacion: 'numLikes'}) }}">NumLikes</a>
+				</th>
+				<th>
+					<a href="{{ path("app_imagen_index_ordenado", {ordenacion: 'numDescargas'}) }}">NumDescargas</a>
+				</th>
 				<th>actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for imagen in imagens %}
+			{% for imagen in imagenes %}
 				<tr>
 					<td>{{ imagen.id }}</td>
 					<td><img src="{{ asset(imagen.getUrlGaleria()) }}" alt="{{ imagen.nombre }}" width="100px"></td>
