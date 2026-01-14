@@ -9,39 +9,51 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/imagen')]
 final class ImagenController extends AbstractController
 {
     #[Route('/', name: 'app_imagen_index', methods: ['GET'])]
     #[Route('/orden/{ordenacion}', name: 'app_imagen_index_ordenado', methods: ['GET'])]
-    public function index(Request $requestStack, ImagenRepository $imagenRepository, string $ordenacion = null): Response
-    {
-        if (!is_null($ordenacion)) {  // Cuando se establece un tipo de ordenación específico
+    public function index(
+        Request $requestStack,
+        ImagenRepository $imagenRepository,
+        string $ordenacion = null
+    ): Response {
+        if (!is_null($ordenacion)) { // Cuando se establece un tipo de ordenación específico
+            $tipoOrdenacion = 'asc'; // Por defecto si no se había guardado antes en la variable de sesión
             $session = $requestStack->getSession(); // Abrir la sesión
-            $tipoOrdenacion = 'asc'; // Por defecto
             $imagenesOrdenacion = $session->get('imagenesOrdenacion');
-            if (!is_null($imagenesOrdenacion)) {
-                if ($imagenesOrdenacion['ordenacion'] === $ordenacion) {
-                    // Si el campo de ordenación es el mismo, alternar el tipo
-                    $tipoOrdenacion = ($imagenesOrdenacion['tipoOrdenacion'] === 'asc') ? 'desc' : 'asc';
+            if (!is_null($imagenesOrdenacion)) { // Comprobamos si ya se había establecido un orden
+                if ($imagenesOrdenacion['ordenacion'] === $ordenacion) // Por si se ha cambiado de campo a ordenar
+                {
+                    if ($imagenesOrdenacion['tipoOrdenacion'] === 'asc')
+                        $tipoOrdenacion = 'desc';
                 }
             }
-            $session->set('imagenesOrdenacion', [
+            $session->set('imagenesOrdenacion', [ // Se guarda la ordenación actual
                 'ordenacion' => $ordenacion,
                 'tipoOrdenacion' => $tipoOrdenacion
             ]);
-        } else {
-            // Se guarda la ordenación actual
-            // La primera vez que se entra se establece por defecto la ordenación por id ascendente
+        } else { // La primera vez que se entra se establece por defecto la ordenación por id ascendente
             $ordenacion = 'id';
             $tipoOrdenacion = 'asc';
         }
-        $imagenes = $imagenRepository->findBy([], [$ordenacion => $tipoOrdenacion]);
+        $imagenes = $imagenRepository->findImagenesConCategoria($ordenacion, $tipoOrdenacion);
         return $this->render('imagen/index.html.twig', [
-            'imagenes' => $imagenes
+            'imagens' => $imagenes
+        ]);
+    }
+    #[Route('/busqueda', name: 'app_imagen_index_busqueda', methods: ['POST'])]
+    public function busqueda(Request $request, ImagenRepository $imagenRepository): Response
+    {
+        $busqueda = $request->request->get('busqueda');
+        $imagenes = $imagenRepository->findLikeDescripcion($busqueda);
+        return $this->render('imagen/index.html.twig', [
+            'imagens' => $imagenes
         ]);
     }
 
@@ -51,36 +63,23 @@ final class ImagenController extends AbstractController
         $imagen = new Imagen();
         $form = $this->createForm(ImagenType::class, $imagen);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            // $file almacena el archivo subido 
+            // $file almacena el archivo subido
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form['nombre']->getData();
-            // Generamos un nombre único 
+            // Generamos un nombre único
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            // Move the file to the directory where brochures are stored 
+            // Move the file to the directory where brochures are stored
             $file->move($this->getParameter('images_directory_subidas'), $fileName);
-            // Actualizamos el nombre del archivo en el objeto imagen al nuevo generado 
+            // Actualizamos el nombre del archivo en el objeto imagen al nuevo generado
             $imagen->setNombre($fileName);
             $entityManager->persist($imagen);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_imagen_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('imagen/new.html.twig', [
             'imagen' => $imagen,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/busqueda', name: 'app_imagen_index_busqueda', methods: ['POST'])]
-    public function busqueda(Request $request, ImagenRepository $imagenRepository): Response
-    {
-        $busqueda = $request->request->get('busqueda');
-        $imagenes = $imagenRepository->findLikeDescripcion($busqueda);
-        return $this->render('imagen/index.html.twig', [
-            'imagenes' => $imagenes
         ]);
     }
 
@@ -99,6 +98,13 @@ final class ImagenController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['nombre']->getData();
+            // Generamos un nombre único
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            // Move the file to the directory where brochures are stored
+            $file->move($this->getParameter('images_directory_subidas'), $fileName);
+            // Actualizamos el nombre del archivo en el objeto imagen al nuevo generado
+            $imagen->setNombre($fileName);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_imagen_index', [], Response::HTTP_SEE_OTHER);

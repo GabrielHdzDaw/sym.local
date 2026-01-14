@@ -7,22 +7,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Categoria;
 
 class ImagenType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nombre', TextType::class)
-            ->add('categoria', TextType::class)
-            ->add('descripcion', TextType::class)
-            ->add('numVisualizaciones', NumberType::class)
-            ->add('numLikes', NumberType::class)
-            ->add('numDescargas', NumberType::class)
             ->add('nombre', FileType::class, [
                 'label' => 'Nombre imagen (JPG o PNG)',
                 'label_attr' => ['class' => 'etiqueta'],
@@ -35,8 +30,17 @@ class ImagenType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Por favor, seleccione un archivo jpg o png',
-                    ]),
+                    ])
                 ],
+            ])
+            ->add('descripcion', TextType::class)
+            ->add('numDownloads', IntegerType::class)
+            ->add('numVisualizaciones', IntegerType::class)
+            ->add('numLikes', IntegerType::class)
+            ->add('categoria', EntityType::class, [
+                'class' => Categoria::class,
+                'label' => 'Categoria:',
+                'label_attr' => ['class' => 'etiqueta'],
             ])
         ;
     }

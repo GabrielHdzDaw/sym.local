@@ -1,9 +1,4 @@
 {{ form_start(form) }}
-<style>
-	.etiqueta {
-		color: green;
-	}
-</style>
 <div class="container">
 	<div class="my-custom-class-for-errors">
 		{{ form_errors(form) }}
@@ -21,11 +16,6 @@
 			{{ form_row(form.descripcion) }}
 		</div>
 	</div>
-	{# <div class="row">
-			<div class="col-md-12">
-				{{ form_row(form.password) }}
-			</div>
-		</div> #}
 	<div class="row">
 		<div class="col-md-4">
 			{{ form_row(form.numVisualizaciones) }}
@@ -34,12 +24,11 @@
 			{{ form_row(form.numLikes) }}
 		</div>
 		<div class="col-md-4">
-			{{ form_row(form.numDescargas) }}
+			{{ form_row(form.numDownloads) }}
 		</div>
 	</div>
 	<div class="row">
-		<button class="btn">{{ button_label|default('Guardar') }}</button>
+		<button class="btn btn-success">{{ button_label|default('Guardar') }}</button>
 	</div>
 </div>
-
 {{ form_end(form) }}

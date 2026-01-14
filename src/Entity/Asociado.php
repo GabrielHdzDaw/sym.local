@@ -13,25 +13,26 @@ class Asociado
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 50)]
     private ?string $nombre = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $descripcion = null;
 
     #[ORM\Column(length: 255)]
     private ?string $logo = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $descripcion = null;
+
+    public function __construct($nombre = "", $logo = "", $descripcion = "")
+    {
+        $this->id = null;
+        $this->nombre = $nombre;
+        $this->logo = $logo;
+        $this->descripcion = $descripcion;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getNombre(): ?string
@@ -42,6 +43,18 @@ class Asociado
     public function setNombre(string $nombre): static
     {
         $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(string $logo): static
+    {
+        $this->logo = $logo;
 
         return $this;
     }
@@ -58,15 +71,15 @@ class Asociado
         return $this;
     }
 
-    public function getLogo(): ?string
+    public function __toString(): string
     {
-        return $this->logo;
+        return $this->descripcion;
     }
 
-    public function setLogo(string $logo): static
-    {
-        $this->logo = $logo;
+    const RUTA_LOGOS_ASOCIADOS = '/public/images/asociados/';
 
-        return $this;
+    public function getUrlAsociados(): string
+    {
+        return self::RUTA_LOGOS_ASOCIADOS . $this->getLogo();
     }
 }

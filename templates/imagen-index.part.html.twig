@@ -1,0 +1,71 @@
+<div id="category{{ idCategoria }}" class="tab-pane fade {{ idCategoria == 1 ? 'show active' : ''}}">
+	<div class="row popup-gallery">
+		{% for imagen in imagenes %}
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="sol">
+					<img class="img-fluid" src="{{ asset(imagen.getUrlPortfolio()) }}" alt="First category picture">
+					<div class="behind">
+						<div class="head text-center">
+							<ul class="list-inline mb-0">
+								<li class="list-inline-item">
+									<a class="gallery" href="{{ asset(imagen.getUrlGaleria()) }}" data-bs-toggle="tooltip" data-bs-title="Quick View">
+										<i class="fa fa-eye"></i>
+									</a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" data-bs-toggle="tooltip" data-bs-title="Click if you like it">
+										<i class="fa fa-heart"></i>
+									</a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" data-bs-toggle="tooltip" data-bs-title="Download">
+										<i class="fa fa-download"></i>
+									</a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" data-bs-toggle="tooltip" data-bs-title="More information">
+										<i class="fa fa-info"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="row box-content">
+							<ul class="list-inline text-center mb-0">
+								<li class="list-inline-item">
+									<i class="fa fa-eye"></i>
+									{{ imagen.getNumVisualizaciones() }}
+								</li>
+								<li class="list-inline-item">
+									<i class="fa fa-heart"></i>
+									{{ imagen.getNumLikes() }}
+								</li>
+								<li class="list-inline-item">
+									<i class="fa fa-download"></i>
+									{{ imagen.getNumDownloads() }}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<nav class="text-center">
+		<ul class="pagination justify-content-center">
+			<li class="page-item {{ idCategoria == 1 ? 'active' : '' }}">
+				<a class="page-link" href="#">1</a>
+			</li>
+			<li class="page-item {{ idCategoria == 2 ? 'active' : '' }}">
+				<a class="page-link" href="#">2</a>
+			</li>
+			<li class="page-item {{ idCategoria == 3 ? 'active' : '' }}">
+				<a class="page-link" href="#">3</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#" aria-label="suivant">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+				</nav>
+			</div>

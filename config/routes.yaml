@@ -1,27 +1,20 @@
-# controllers:
-#     resource: ../src/Controller/
-#     type: attribute
-
-index:
-    path: /
-    controller: App\Controller\ProyectoController::index
-
-imagen:
-    path: /imagen
-    controller: App\Controller\ImagenController::index
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+# index:
+#     path: /pruebas
+#     controller: App\Controller\DefaultController::index
 
 # index1:
+#     path: /
+#     controller: App\Controller\ProyectoController::index
+
+# indexUno:
 #     path: /uno
 #     controller: App\Controller\DefaultController::index1
 
-# index2:
+# indexDos:
 #     path: /dos
-#     controller: App\Controller\DefaultController::index2
-
-about:
-    path: /about
-    controller: App\Controller\DefaultController::about
-
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+#     controller: App\Controller\DefaultController::index2    

@@ -1,97 +1,113 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Galeria
+{% endblock %}
+{% block principal %}
+	<!-- Principal Content Start -->
+	<div id="index">
+		<!-- Header / Hero Section -->
+		<div class="row g-0">
+			<div class="col-12 intro">
+				<div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="images/index/woman.jpg" class="d-block w-100 img-fluid" alt="header picture" style="max-height: 600px; object-fit: cover;">
+							<div class="carousel-caption d-none d-md-block text-start p-5 rounded shadow-lg" style="background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); left: 10%; bottom: 20%; max-width: 600px;">
+								<h1 class="display-3 fw-bold text-white mb-3">FIND NICE PICTURES HERE</h1>
+								<p class="lead text-white-50">Explora una colección exclusiva de fotografía profesional.</p>
+								<hr class="w-25 border-3 opacity-100 border-primary">
+								<a href="#index-body" class="btn btn-primary btn-lg mt-3 px-5 py-3 rounded-pill page-scroll">EXPLORAR</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-<!-- Principal Content Start -->
-<div id="index">
+		<div id="index-body" class="bg-light py-5">
+			<div class="container">
+				<!-- Pictures Navigation table -->
+				<div class="row justify-content-center mb-5">
+					<div class="col-md-8 text-center">
+						<h2 class="section-title mb-4">Nuestra Galería</h2>
+						<div class="nav nav-pills justify-content-center mb-4" id="nav-tab" role="tablist">
+							<button class="nav-link active mx-2 px-4 py-2" id="nav-cat1-tab" data-bs-toggle="tab" data-bs-target="#category1" type="button" role="tab">Categoría I</button>
+							<button class="nav-link mx-2 px-4 py-2" id="nav-cat2-tab" data-bs-toggle="tab" data-bs-target="#category2" type="button" role="tab">Categoría II</button>
+							<button class="nav-link mx-2 px-4 py-2" id="nav-cat3-tab" data-bs-toggle="tab" data-bs-target="#category3" type="button" role="tab">Categoría III</button>
+						</div>
+						<hr class="w-50 mx-auto opacity-25">
+					</div>
+				</div>
 
-    <!-- Header -->
-    <div class="row">
-        <div class="col-xs-12 intro">
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img class="img-responsive" src="/public/images/index/woman.jpg" alt="header picture">
-                </div>
-                <div class="carousel-caption">
-                    <h1>FIND NICE PICTURES HERE</h1>
-                    <hr>
-                </div>
-            </div>
-        </div>
-    </div>
+				<!-- Navigation Table Content -->
+				<div class="tab-content" id="nav-tabContent">
+					<!-- First Category pictures -->
+					{% include 'imagen-index.part.html.twig' with {'imagenes':imagenes, 'idCategoria':1} %}
+					<!--second category pictures -->
+					{% include 'imagen-index.part.html.twig' with {'imagenes':imagenes|shuffle, 'idCategoria':2} %}
+					<!-- Third Category Pictures -->
+					{% include 'imagen-index.part.html.twig' with {'imagenes':imagenes|shuffle, 'idCategoria':3} %}
+				</div>
+			</div>
+		</div>
 
-    <div id="index-body">
-        <!-- Pictures Navigation table -->
-        <div class="table-responsive">
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <td><a class="link active" href="#category1" data-toggle="tab">category I</a></td>
-                        <td><a class="link" href="#category2" data-toggle="tab">category II</a></td>
-                        <td><a class="link" href="#category3" data-toggle="tab">category III</a></td>
-                    </tr>
-                </thead>
-            </table>
-            <hr>
-        </div>
+		<!-- Newsletter form -->
+		<div class="index-form bg-dark text-white py-5">
+			<div class="container text-center">
+				<div class="row justify-content-center">
+					<div class="col-lg-6">
+						<i class="fa fa-paper-plane fa-3x mb-4 text-primary"></i>
+						<h2 class="display-6 fw-bold mb-3">SUSCRÍBETE</h2>
+						<p class="text-white-50 mb-4">Recibe noticias, regalos y actualizaciones exclusivas directamente en tu correo.</p>
+						<form class="row g-2 justify-content-center">
+							<div class="col-sm-8">
+								<input class="form-control form-control-lg border-0 shadow-none px-4" type="email" placeholder="Tu correo electrónico">
+							</div>
+							<div class="col-sm-4">
+								<button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">SUSCRIBIRSE</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- Navigation Table Content -->
-        <div class="tab-content">
-
-            <!-- First Category pictures -->
-
-           
-        </div>
-
-    </div>
-    <!-- End of First category pictures -->
-
-    <!--second category pictures -->
-    <div id="category2" class="tab-pane">
-        <div class="row popup-gallery">
-          
-        </div>
-
-    </div>
-    <!-- End of second category pictures -->
-
-    <!-- Third Category Pictures -->
-    <div id="category3" class="tab-pane">
-        <div class="row popup-gallery">
-       
-        </div>
-    </div>
-    <nav class="text-center">
-        <ul class="pagination">
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#" aria-label="suivant">
-                    <span aria-hidden="true">&raquo;</span>
-                </a></li>
-        </ul>
-    </nav>
-</div>
-<!-- Third Category Pictures -->
-
-</div>
-<!-- End of Navigation Table Content -->
-</div><!-- End of Index-body box -->
-
-<!-- Newsletter form -->
-<div class="index-form text-center">
-    <h3>SUSCRIBE TO OUR NEWSLETTER </h3>
-    <h5>Suscribe to receive our News and Gifts</h5>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <div class="col-xs-12 col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
-                <input class="form-control" type="text" placeholder="Type here your email address">
-                <a href="" class="btn btn-lg sr-button">SUBSCRIBE</a>
-            </div>
-        </div>
-    </form>
-</div>
-<!-- End of Newsletter form -->
-
-<!-- Box within partners name and logo -->
-
-<!-- End of Box within partners name and logo -->
-
-</div><!-- End of index box -->
+		<!-- Partners Section -->
+		<div class="bg-white py-5">
+			<div class="container">
+				<div class="row g-4 align-items-center">
+					<div class="col-lg-4 text-center text-lg-start border-end border-light">
+						<div class="mb-4">
+							<i class="fa fa-map-marker fa-2x text-primary mb-2"></i>
+							<p class="text-muted small mb-0">35 North Drive, Adroukpape, PY 88105, Agoe Telessou</p>
+						</div>
+						<h4 class="fw-bold">Nuestros Socios</h4>
+					</div>
+					<div class="col-lg-8">
+						<div class="row row-cols-1 row-cols-md-3 g-4">
+							<div class="col">
+								<div class="d-flex align-items-center p-3 bg-light rounded shadow-sm">
+									<img src="images/index/log2.jpg" alt="logo" class="img-fluid me-3" style="height: 40px;">
+									<span class="fw-semibold">First Partner</span>
+								</div>
+							</div>
+							<div class="col">
+								<div class="d-flex align-items-center p-3 bg-light rounded shadow-sm">
+									<img src="images/index/log1.jpg" alt="logo" class="img-fluid me-3" style="height: 40px;">
+									<span class="fw-semibold">Second Partner</span>
+								</div>
+							</div>
+							<div class="col">
+								<div class="d-flex align-items-center p-3 bg-light rounded shadow-sm">
+									<img src="images/index/log3.jpg" alt="logo" class="img-fluid me-3" style="height: 40px;">
+									<span class="fw-semibold">Third Partner</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End of index box -->
+{% endblock %}

@@ -1,6 +1,8 @@
 {
+    "name": "symfony/skeleton",
     "type": "project",
     "license": "proprietary",
+    "description": "A minimal Symfony project recommended to create bare bones applications",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
@@ -78,7 +80,6 @@
         }
     },
     "require-dev": {
-        "symfony/stopwatch": "7.3.*",
         "symfony/web-profiler-bundle": "7.3.*"
     }
 }

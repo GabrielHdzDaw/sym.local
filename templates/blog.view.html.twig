@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Blog
+{% endblock %}
+{% block principal %}
+	<!-- Principal Content Start -->
+	<div id="blog" class="py-5 bg-light">
+		<div class="container">
+			<div
+				class="row">
+
+				<!-- Blocks of Posts -->
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-12 mb-4">
+							<div class="card border-0 shadow-sm h-100 post">
+								<div class="post-heading position-relative">
+									<span class="badge bg-primary position-absolute top-0 start-0 m-3">6 JANUARY</span>
+									<img class="img-fluid rounded-top w-100" src="{{ asset('images/blog/landscape.jpg') }}" alt="post's picture">
+								</div>
+								<div class="card-body post-body">
+									<h3 class="card-title h4">
+										<a href="#" class="text-decoration-none text-dark fw-bold">
+											doloremque illum
+										</a>
+									</h3>
+									<hr class="my-3 opacity-25">
+									<p class="card-text text-muted">Duis ultrices tortor non felis convallis bibendum. Maecenas diam velit, sollicitudin at imperdiet ac, consectetur non nibh. Etiam eget dapibus nulla.
+									</p>
+								</div>
+								<div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+									<a class="btn btn-outline-primary rounded-pill" href="#">READ MORE...</a>
+									<span class="text-muted small">
+										<i class="fa fa-heart text-danger sr-icons me-1"></i>
+										10
+										<i class="fa fa-comments text-primary sr-icons ms-2 me-1"></i>
+										10
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 mb-4">
+							<div class="card border-0 shadow-sm h-100 post">
+								<div class="post-heading position-relative">
+									<span class="badge bg-primary position-absolute top-0 start-0 m-3">7 FEBRUARY</span>
+									<img class="img-fluid rounded-top w-100" src="{{ asset('images/blog/family.jpg') }}" alt="post's picture">
+								</div>
+								<div class="card-body post-body">
+									<h3 class="card-title h4">
+										<a href="#" class="text-decoration-none text-dark fw-bold">
+											Lorem ipsum
+										</a>
+									</h3>
+									<hr class="my-3 opacity-25">
+									<p class="card-text text-muted">Nunc sit amet dapibus est, sit amet varius risus. Donec luctus lacinia mauris, at feugiat ligula facilisis ac. Class aptent taciti sociosqu ad litora torquent per conubia.
+									</p>
+								</div>
+								<div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+									<a class="btn btn-outline-primary rounded-pill" href="#">READ MORE...</a>
+									<span class="text-muted small">
+										<i class="fa fa-heart text-danger sr-icons me-1"></i>
+										10
+										<i class="fa fa-comments text-primary sr-icons ms-2 me-1"></i>
+										10
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 mb-4">
+							<div class="card border-0 shadow-sm h-100 post">
+								<div class="post-heading position-relative">
+									<span class="badge bg-primary position-absolute top-0 start-0 m-3">8 MARCH</span>
+									<img class="img-fluid rounded-top w-100" src="{{ asset('images/blog/elephant.jpg') }}" alt="post's picture">
+								</div>
+								<div class="card-body post-body">
+									<h3 class="card-title h4">
+										<a href="#" class="text-decoration-none text-dark fw-bold">
+											Aliquam soluta
+										</a>
+									</h3>
+									<hr class="my-3 opacity-25">
+									<p class="card-text text-muted">In felis ante, aliquet sit amet venenatis at, feugiat sed leo. Fusce pretium, velit in luctus ornare, elit lorem ultrices tortor, sed consectetur orci risus mollis ante.
+									</p>
+								</div>
+								<div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+									<a class="btn btn-outline-primary rounded-pill" href="#">READ MORE...</a>
+									<span class="text-muted small">
+										<i class="fa fa-heart text-danger sr-icons me-1"></i>
+										10
+										<i class="fa fa-comments text-primary sr-icons ms-2 me-1"></i>
+										10
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<nav class="mt-4">
+						<ul class="pagination pagination-lg justify-content-start">
+							<li class="page-item active">
+								<a class="page-link" href="#">1</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#">2</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#">3</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<!-- End of Blog Post -->
+
+				<!-- Side bar -->
+				<div class="col-md-4 mt-4 mt-md-0">
+					<div class="card border-0 shadow-sm mb-4">
+						<div class="card-body">
+							<form class="search-form">
+								<div class="input-group">
+									<input class="form-control border-end-0 rounded-start-pill" type="text" placeholder="Research">
+									<button class="btn btn-primary rounded-end-pill px-4" type="button">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="card border-0 shadow-sm mb-4">
+						<div class="card-header bg-white border-0 py-3">
+							<h4 class="card-title h5 mb-0 fw-bold">Categories</h4>
+						</div>
+						<div class="card-body p-0">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item border-0 px-4 py-3">
+									<a href="#" class="text-decoration-none text-muted">Category I</a>
+								</li>
+								<li class="list-group-item border-0 px-4 py-3">
+									<a href="#" class="text-decoration-none text-muted">Category II</a>
+								</li>
+								<li class="list-group-item border-0 px-4 py-3">
+									<a href="#" class="text-decoration-none text-muted">Category III</a>
+								</li>
+								<li class="list-group-item border-0 px-4 py-3">
+									<a href="#" class="text-decoration-none text-muted">Category IV</a>
+								</li>
+								<li class="list-group-item border-0 px-4 py-3">
+									<a href="#" class="text-decoration-none text-muted">Category V</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="card border-0 shadow-sm mb-4 bg-primary text-white">
+						<div class="card-body p-4">
+							<h4 class="h5 fw-bold mb-3">Soluta</h4>
+							<p class="mb-0 opacity-75">Quod soluta corrupti earum officia vel inventore vitae quidem, consequuntur odit impedit.</p>
+						</div>
+					</div>
+
+					<h4 class="h5 fw-bold mb-3 mt-5 px-2">Recent Posts</h4>
+					<hr class="mx-2 mb-4 opacity-10">
+
+					<div class="card border-0 shadow-sm mb-3">
+						<div class="row g-0">
+							<div class="col-4">
+								<img class="img-fluid rounded-start h-100 object-fit-cover" src="{{ asset('images/blog/wedding.jpg') }}" alt="recent post">
+							</div>
+							<div class="col-8">
+								<div class="card-body p-3">
+									<div class="text-muted small mb-1">10 APRIL</div>
+									<h5 class="card-title h6 mb-2">
+										<a href="#" class="text-decoration-none text-dark fw-bold">Aliquam soluta</a>
+									</h5>
+									<div class="text-muted small">
+										<i class="fa fa-heart text-danger me-1"></i>
+										10
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card border-0 shadow-sm mb-3">
+						<div class="row g-0">
+							<div class="col-4">
+								<img class="img-fluid rounded-start h-100 object-fit-cover" src="{{ asset('images/blog/woman.jpg') }}" alt="recent post">
+							</div>
+							<div class="col-8">
+								<div class="card-body p-3">
+									<div class="text-muted small mb-1">12 MAY</div>
+									<h5 class="card-title h6 mb-2">
+										<a href="#" class="text-decoration-none text-dark fw-bold">Consequuntur</a>
+									</h5>
+									<div class="text-muted small">
+										<i class="fa fa-heart text-danger me-1"></i>
+										10
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End of Side bar -->
+
+			</div>
+		</div>
+	</div>
+	<!-- End of Principal Content Start -->
+{% endblock %}
