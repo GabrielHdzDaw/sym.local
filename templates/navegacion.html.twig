@@ -1,46 +1,67 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white border-bottom shadow-sm">
-  <div class="container">
-    <a class="navbar-brand page-scroll" href="#page-top">
-      <span>[PHOTO]</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link {{ (app.request.pathinfo == '/index' or app.request.pathinfo == '/') ? 'active' : '' }} lien" href="{{ path('sym_index') }}">
-            <i class="fa fa-home sr-icons"></i> Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ (app.request.pathinfo == '/imagen') ? 'active' : '' }} lien" href="{{ path('app_imagen_index') }}">
-            <i class="fa fa-picture-o sr-icons"></i> Galeria
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ (app.request.pathinfo == '/asociados') ? 'active' : '' }} lien" href="{{ path('app_asociado') }}">
-            <i class="fa fa-users sr-icons"></i> Asociados
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ (app.request.pathinfo == '/about') ? 'active' : '' }} lien" href="{{ path('sym_index') }}">
-            <i class="fa fa-bookmark sr-icons"></i> About
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ (app.request.pathinfo == '/blog') ? 'active' : '' }} lien" href="{{ path('sym_blog') }}">
-            <i class="fa fa-file-text sr-icons"></i> Blog
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ (app.request.pathinfo == '/contact') ? 'active' : '' }} lien" href="{{ path('sym_index') }}">
-            <i class="fa fa-phone-square sr-icons"></i> Contact
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
+	<div class="container">
+		<a class="navbar-brand page-scroll" href="#page-top">
+			<span>[PHOTO]</span>
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="menu">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a class="nav-link {{ (app.request.pathinfo == '/index' or app.request.pathinfo == '/') ? 'active' : '' }} lien" href="{{ path('sym_index') }}">
+						<i class="fa fa-home sr-icons"></i>
+						Home
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link {{ (app.request.pathinfo == '/imagen') ? 'active' : '' }} lien" href="{{ path('app_imagen_index') }}">
+						<i class="fa fa-picture-o sr-icons"></i>
+						Galeria
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link {{ (app.request.pathinfo == '/asociados') ? 'active' : '' }} lien" href="{{ path('app_asociado') }}">
+						<i class="fa fa-users sr-icons"></i>
+						Asociados
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link {{ (app.request.pathinfo == '/about') ? 'active' : '' }} lien" href="{{ path('sym_index') }}">
+						<i class="fa fa-bookmark sr-icons"></i>
+						About
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link {{ (app.request.pathinfo == '/blog') ? 'active' : '' }} lien" href="{{ path('sym_blog') }}">
+						<i class="fa fa-file-text sr-icons"></i>
+						Blog
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link {{ (app.request.pathinfo == '/contact') ? 'active' : '' }} lien" href="{{ path('sym_index') }}">
+						<i class="fa fa-phone-square sr-icons"></i>
+						Contact
+					</a>
+				</li>
+				{% if is_granted('IS_AUTHENTICATED') %}
+					<li class=" lien">
+						<a href={{ path('app_logout') }}>
+							<i class="fa fa-sign-out sr-icons"></i>
+							Logout -
+							{{ 
+app.user.username }}</a>
+					</li>
+				{% else %}
+					<li class=" lien">
+						<a href={{ path('app_login') }}>
+							<i class="fa fa-sign-in sr-icons"></i>
+							Login</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
 </nav>
 <!-- End of Navigation Bar -->

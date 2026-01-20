@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Categoria;
@@ -41,6 +42,9 @@ class ImagenType extends AbstractType
                 'class' => Categoria::class,
                 'label' => 'Categoria:',
                 'label_attr' => ['class' => 'etiqueta'],
+            ])
+            ->add('fecha', DateType::class, [
+                'widget' => 'single_text'
             ])
         ;
     }

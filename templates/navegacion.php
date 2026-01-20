@@ -48,6 +48,8 @@ use App\Utils\Utils;
                     echo '<li class="active lien">';
                 else echo '<li class="lien">'; ?>
                 <a href="/contact"><i class="fa fa-phone-square sr-icons"></i> Contact</a></li>
+
+                
             </ul>
         </div>
     </div>

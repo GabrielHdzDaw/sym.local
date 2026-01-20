@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\BLL\ImagenBLL;
 
 #[Route('/imagen')]
 final class ImagenController extends AbstractController
@@ -19,41 +20,26 @@ final class ImagenController extends AbstractController
     #[Route('/', name: 'app_imagen_index', methods: ['GET'])]
     #[Route('/orden/{ordenacion}', name: 'app_imagen_index_ordenado', methods: ['GET'])]
     public function index(
-        Request $requestStack,
-        ImagenRepository $imagenRepository,
-        string $ordenacion = null
+        ImagenBLL $imagenBLL,
+        ?string $ordenacion = null
     ): Response {
-        if (!is_null($ordenacion)) { // Cuando se establece un tipo de ordenación específico
-            $tipoOrdenacion = 'asc'; // Por defecto si no se había guardado antes en la variable de sesión
-            $session = $requestStack->getSession(); // Abrir la sesión
-            $imagenesOrdenacion = $session->get('imagenesOrdenacion');
-            if (!is_null($imagenesOrdenacion)) { // Comprobamos si ya se había establecido un orden
-                if ($imagenesOrdenacion['ordenacion'] === $ordenacion) // Por si se ha cambiado de campo a ordenar
-                {
-                    if ($imagenesOrdenacion['tipoOrdenacion'] === 'asc')
-                        $tipoOrdenacion = 'desc';
-                }
-            }
-            $session->set('imagenesOrdenacion', [ // Se guarda la ordenación actual
-                'ordenacion' => $ordenacion,
-                'tipoOrdenacion' => $tipoOrdenacion
-            ]);
-        } else { // La primera vez que se entra se establece por defecto la ordenación por id ascendente
-            $ordenacion = 'id';
-            $tipoOrdenacion = 'asc';
-        }
-        $imagenes = $imagenRepository->findImagenesConCategoria($ordenacion, $tipoOrdenacion);
+        $imagenes = $imagenBLL->getImagenesConOrdenacion($ordenacion);
         return $this->render('imagen/index.html.twig', [
-            'imagens' => $imagenes
+            'imagenes' => $imagenes
         ]);
     }
     #[Route('/busqueda', name: 'app_imagen_index_busqueda', methods: ['POST'])]
     public function busqueda(Request $request, ImagenRepository $imagenRepository): Response
     {
         $busqueda = $request->request->get('busqueda');
-        $imagenes = $imagenRepository->findLikeDescripcion($busqueda);
+        $fechaInicial = $request->request->get('fechaInicial');
+        $fechaFinal = $request->request->get('fechaFinal');
+        $imagenes = $imagenRepository->findImagenes($busqueda, $fechaInicial, $fechaFinal);
         return $this->render('imagen/index.html.twig', [
-            'imagens' => $imagenes
+            'imagenes' => $imagenes,
+            'busqueda' => $busqueda,
+            'fechaInicial' => $fechaInicial,
+            'fechaFinal' => $fechaFinal
         ]);
     }
 
@@ -77,6 +63,7 @@ final class ImagenController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_imagen_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->addFlash('mensaje', 'Se ha creado la imagen ' . $imagen->getNombre());
         return $this->render('imagen/new.html.twig', [
             'imagen' => $imagen,
             'form' => $form,
@@ -91,7 +78,7 @@ final class ImagenController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_imagen_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_imagen_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Imagen $imagen, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ImagenType::class, $imagen);
@@ -116,7 +103,7 @@ final class ImagenController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_imagen_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_imagen_delete', methods: ['POST'])]
     public function delete(Request $request, Imagen $imagen, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $imagen->getId(), $request->getPayload()->getString('_token'))) {
