@@ -16,10 +16,16 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            # configure the maximum login attempts 
+            login_throttling: 
+                max_attempts: 3         
+                # por minuto 
+                interval: '1 minutes'  # tiempo de espera hasta poder volver a intentar acceder                                                    
 
             form_login: 
                 login_path: app_login 
                 check_path: app_login
+                enable_csrf: true
 
             logout: 
                 path: app_logout 
@@ -40,7 +46,7 @@ security:
         - { path: ^/imagen/delete, roles: ROLE_ADMIN } 
         - { path: ^/imagen, roles: ROLE_USER } 
         # allow unauthenticated users to access the login form 
-        - { path: ^/register, roles: PUBLI_ACCESS } 
+        - { path: ^/register, roles: PUBLIC_ACCESS } 
         - { path: ^/login, roles: PUBLIC_ACCESS } 
         - { path: ^/logout, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
