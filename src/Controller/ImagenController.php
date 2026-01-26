@@ -34,7 +34,13 @@ final class ImagenController extends AbstractController
         $busqueda = $request->request->get('busqueda');
         $fechaInicial = $request->request->get('fechaInicial');
         $fechaFinal = $request->request->get('fechaFinal');
-        $imagenes = $imagenRepository->findImagenes($busqueda, $fechaInicial, $fechaFinal);
+        $usuarioLogueado = $this->getUser();
+        $imagenes = $imagenRepository->findImagenes(
+            $busqueda,
+            $fechaInicial,
+            $fechaFinal,
+            $usuarioLogueado
+        );
         return $this->render('imagen/index.html.twig', [
             'imagenes' => $imagenes,
             'busqueda' => $busqueda,
@@ -58,6 +64,8 @@ final class ImagenController extends AbstractController
             // Move the file to the directory where brochures are stored
             $file->move($this->getParameter('images_directory_subidas'), $fileName);
             // Actualizamos el nombre del archivo en el objeto imagen al nuevo generado
+            $usuario = $this->getUser();
+            $imagen->setUsuario($usuario);
             $imagen->setNombre($fileName);
             $entityManager->persist($imagen);
             $entityManager->flush();

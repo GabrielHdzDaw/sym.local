@@ -17,4 +17,4 @@ controllers:
 
 # indexDos:
 #     path: /dos
-#     controller: App\Controller\DefaultController::index2    
+#     controller: App\Controller\DefaultControla
