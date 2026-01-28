@@ -15,18 +15,21 @@
         {% if error %} 
             <div class="etiqueta">{{ error.messageKey|trans(error.messageData, 'security') }}</div><br> 
         {% endif %} 
-        <form action="{{ path('app_login') }}" method="post"> 
-            <label for="username">Usuario:</label> 
+        <form class="mt-4 p-4 border rounded bg-light shadow-sm" action="{{ path('app_login') }}" method="post" style="max-width: 400px; margin: 0 auto;"> 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <input type="text" id="username" name="_username" value="{{ last_username }}"> 
- 
-            <label for="password">Password:</label> 
-            <input type="password" id="password" name="_password"> 
- 
+            <div class="mb-3">
+                <label for="username" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="Introduce tu usuario" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="_password" placeholder="Introduce tu contraseña" required>
+            </div>
             {# If you want to control the URL the user is redirected to on success 
-            <input type="hidden" name="_target_path" value="/account"> #} 
- 
-            <button type="submit">login</button> 
-        </form> 
+            <input type="hidden" name="_target_path" value="/account"> #}
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+            </div>
+        </form>
     </div> 
 {% endblock %}

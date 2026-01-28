@@ -127,6 +127,7 @@ final class ImagenController extends AbstractController
     public function deleteJson(Imagen $imagen, ImagenRepository $imagenRepository): Response
     {
         $imagenRepository->remove($imagen, true);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return new JsonResponse(['eliminado' => true]);
     }
 }
