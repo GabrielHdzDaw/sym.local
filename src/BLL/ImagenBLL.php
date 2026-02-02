@@ -2,14 +2,15 @@
 
 namespace App\BLL;
 
+use BaseBLL;
 use DateTime;
 use App\Entity\User;
 use App\Entity\Imagen;
 use App\Entity\Categoria;
 use App\Repository\ImagenRepository;
-use BaseBLL;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 
 class ImagenBLL extends BaseBLL
@@ -61,19 +62,7 @@ class ImagenBLL extends BaseBLL
     public function nueva(array $data)
     {
         $imagen = new Imagen();
-        $imagen->setNombre($data['nombre']);
-        $imagen->setDescripcion($data['descripcion']);
-        $imagen->setNumVisualizaciones($data['numVisualizaciones']);
-        $imagen->setNumLikes($data['numLikes']);
-        $imagen->setNumDownloads($data['numDownloads']);
-        // El id de la categoria, la tenemos que busar en su BBDD  
-        $categoria = $this->em->getRepository(Categoria::class)->find($data['categoria']);
-        $imagen->setCategoria($categoria);
-        $fecha = DateTime::createFromFormat('d/m/Y', $data['fecha']);
-        $imagen->setFecha($fecha);
-        $usuario = $this->em->getRepository(User::class)->find($data['usuario']);
-        $imagen->setUsuario($usuario);
-        return $this->guardaValidando($imagen);
+        return $this->actualizaImagen($imagen, $data);
     }
 
     public function setRequestStack(RequestStack $requestStack)
@@ -83,5 +72,35 @@ class ImagenBLL extends BaseBLL
     public  function setSecurity(Security $security)
     {
         $this->security = $security;
+    }
+
+    public function getImagenes(?string $order, ?string $descripcion, ?string $fechaInicial, ?string
+    $fechaFinal)
+    {
+        $imagenes = $this->em->getRepository(Imagen::class)->findImagenes(
+            $order,
+            $descripcion,
+            $fechaInicial,
+            $fechaFinal,
+            $usuario = null
+        );
+        return $this->entitiesToArray($imagenes);
+    }
+
+    public function actualizaImagen(Imagen $imagen, array $data)
+    {
+        $imagen->setNombre($data['nombre']);
+        $imagen->setDescripcion($data['descripcion']);
+        $imagen->setNumVisualizaciones($data['numVisualizaciones']);
+        $imagen->setNumLikes($data['numLikes']);
+        $imagen->setNumDownloads($data['numDownloads']);
+        // El id de la categoria, la tenemos que busar en su BBDD a partir del nombre de la seleccionada 
+        $categoria = $this->em->getRepository(Categoria::class)->find($data['categoria']);
+        $imagen->setCategoria($categoria);
+        $fecha = DateTime::createFromFormat('d/m/Y', $data['fecha']);
+        $imagen->setFecha($fecha);
+        $usuario = $this->em->getRepository(User::class)->find($data['usuario']);
+        $imagen->setUsuario($usuario);
+        return $this->guardaValidando($imagen);
     }
 }

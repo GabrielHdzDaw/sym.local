@@ -68,4 +68,20 @@ abstract class BaseBLL
             'usuario' => $imagen->getUsuario()->getId()
         ];
     }
+
+    public function entitiesToArray(array $entities)
+    {
+        if (is_null($entities))
+            return null;
+        $arr = [];
+        foreach ($entities as $entity)
+            $arr[] = $this->toArray($entity);
+        return $arr;
+    }
+
+    public function delete($entity)
+    {
+        $this->em->remove($entity);
+        $this->em->flush();
+    }
 }
