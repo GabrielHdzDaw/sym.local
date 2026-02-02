@@ -2,25 +2,31 @@
 
 namespace App\BLL;
 
+use DateTime;
+use App\Entity\User;
+use App\Entity\Imagen;
+use App\Entity\Categoria;
 use App\Repository\ImagenRepository;
+use BaseBLL;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class ImagenBLL
-{
-    private RequestStack $requestStack;
-    private ImagenRepository $imagenRepository;
-    private Security $security;
 
-    public function __construct(
-        RequestStack $requestStack,
-        ImagenRepository $imagenRepository,
-        Security $security
-    ) {
-        $this->requestStack = $requestStack;
-        $this->imagenRepository = $imagenRepository;
-        $this->security = $security;
-    }
+class ImagenBLL extends BaseBLL
+{
+    // private RequestStack $requestStack;
+    // private ImagenRepository $imagenRepository;
+    // private Security $security;
+
+    // public function __construct(
+    //     RequestStack $requestStack,
+    //     ImagenRepository $imagenRepository,
+    //     Security $security
+    // ) {
+    //     $this->requestStack = $requestStack;
+    //     $this->imagenRepository = $imagenRepository;
+    //     $this->security = $security;
+    // }
     public function getImagenesConOrdenacion(?string $ordenacion)
     {
         if (!is_null($ordenacion)) {  // Cuando se establece un tipo de ordenación específico 
@@ -50,5 +56,32 @@ class ImagenBLL
             $tipoOrdenacion,
             $usuarioLogueado
         );
+    }
+
+    public function nueva(array $data)
+    {
+        $imagen = new Imagen();
+        $imagen->setNombre($data['nombre']);
+        $imagen->setDescripcion($data['descripcion']);
+        $imagen->setNumVisualizaciones($data['numVisualizaciones']);
+        $imagen->setNumLikes($data['numLikes']);
+        $imagen->setNumDownloads($data['numDownloads']);
+        // El id de la categoria, la tenemos que busar en su BBDD  
+        $categoria = $this->em->getRepository(Categoria::class)->find($data['categoria']);
+        $imagen->setCategoria($categoria);
+        $fecha = DateTime::createFromFormat('d/m/Y', $data['fecha']);
+        $imagen->setFecha($fecha);
+        $usuario = $this->em->getRepository(User::class)->find($data['usuario']);
+        $imagen->setUsuario($usuario);
+        return $this->guardaValidando($imagen);
+    }
+
+    public function setRequestStack(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+    public  function setSecurity(Security $security)
+    {
+        $this->security = $security;
     }
 }
