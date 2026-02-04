@@ -1,22 +1,20 @@
 <?php
 
 namespace App\BLL;
-
-use BaseBLL;
 use DateTime;
 use App\Entity\User;
 use App\Entity\Imagen;
+use App\BLL\BaseBLL;
 use App\Entity\Categoria;
-use App\Repository\ImagenRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
 
 
 class ImagenBLL extends BaseBLL
 {
     // private RequestStack $requestStack;
-    // private ImagenRepository $imagenRepository;
+    // private ImagenRepository $imagenRepository;a
     // private Security $security;
 
     // public function __construct(

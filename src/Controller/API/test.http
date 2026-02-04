@@ -1,3 +1,14 @@
+### Send POST request with json body 
+POST http://sym.local/api/auth/register 
+Content-Type: application/json 
+
+{ 
+    "username": "user4", 
+    "email": "joseluis@gmail.com",
+    "password": "user4"
+} 
+
+
 ### Petición GET 
 GET http://sym.local/api/prueba 
 Content-Type: application/json 
@@ -18,7 +29,7 @@ Content-Type: application/json
 } 
 
 ### GET de una imagen 
-GET http://sym.local/api/imagenesapi/17 
+GET http://sym.local/api/imagenesapi/16 
 Content-Type: application/json 
 
 
@@ -55,3 +66,4 @@ Content-Type: application/json
 GET http://sym.local/api/imagenesapi/ordenadas/id?fechaInicial=2024-01
 03&descripcion=imag 
 Content-Type: application/json
+

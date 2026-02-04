@@ -1,6 +1,8 @@
 <?php 
+namespace App\Controller\API;
 
-use Symfony\Component\Routing\Route;
+use App\BLL\UsuarioBLL;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\API\BaseApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

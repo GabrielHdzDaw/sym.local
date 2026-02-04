@@ -20,20 +20,24 @@ services:
     App\:
         resource: "../src/"
 
-    dwes.bll.ImagenBLL: 
+    sym.bll.BaseBLL:
+        class: App\BLL\BaseBLL
+        abstract: true
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@validator"
+            - '@Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface'
+            
+    sym.bll.UsuarioBLL:
+        class: App\BLL\UsuarioBLL
+        parent: sym.bll.BaseBLL
+
+    sym.bll.ImagenBLL:
         class: App\BLL\ImagenBLL
-
-
-    sym.bll.baseBLL: 
-        class: App\BLL\BaseBLL 
-        abstract: true 
-        arguments: ['@doctrine.orm.entity_manager', '@validator']
-
-    sym.bll.ImagenBLL: 
-        class: App\BLL\ImagenBLL 
-        parent: sym.bll.baseBLL 
+        parent: sym.bll.BaseBLL
         calls:
-         - setRequestStack: ['@Symfony\Component\HttpFoundation\RequestStack']
-         - setSecurity: ['@Symfony\Component\Security\Core\Security'] 
+            - setRequestStack:
+                  ['@Symfony\Component\HttpFoundation\RequestStack']
+            - setSecurity: ['@Symfony\Component\Security\Core\Security']
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

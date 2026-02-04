@@ -1,21 +1,32 @@
 <?php
 
-use BaseBLL;
+namespace App\BLL;
+
+use App\BLL\BaseBLL;
 use App\Entity\User;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UsuarioBLL extends BaseBLL
 {
-    public function nuevo(string $username, string $password)
+    protected UserPasswordHasherInterface $encoder;
+
+    // public function __construct(UserPasswordHasherInterface $encoder)
+    // {
+    //     $this->encoder = $encoder;
+    // }
+
+    public function nuevo(string $username, string $email, string $password)
     {
         $usuario = new User();
         $usuario->setUsername($username);
+        $usuario->setEmail($email);
         $usuario->setPassword($this->encoder->hashPassword($usuario, $password));
         $usuario->setRoles(['ROLE_USER']);
 
         return $this->guardaValidando($usuario);
     }
 
-    public function toArray(User $usuario): array
+    public function toArray($usuario): array
     {
         if (is_null($usuario))
             throw new \Exception("No existe el usuario");

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\BLL;
+
 use App\Entity\Imagen;
 use App\Repository\ImagenRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -7,9 +9,11 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 abstract class BaseBLL
 {
+    protected UserPasswordHasherInterface $encoder;
     protected EntityManagerInterface $em;
     protected ValidatorInterface $validator;
     protected RequestStack $requestStack;
@@ -18,15 +22,15 @@ abstract class BaseBLL
     public function __construct(
         EntityManagerInterface $em,
         ValidatorInterface $validator,
+        UserPasswordHasherInterface $encoder,
         RequestStack $requestStack,
-        Security $security,
-        ImagenRepository $imagenRepository
+        Security $security
     ) {
         $this->em = $em;
         $this->validator = $validator;
+        $this->encoder = $encoder;
         $this->requestStack = $requestStack;
         $this->security = $security;
-        $this->imagenRepository = $imagenRepository;
     }
 
     private function validate($entity)
